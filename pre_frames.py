@@ -43,7 +43,6 @@ def save_img(image, file_name):
     print("Successful to save ", file_name)
 
 def main(original_frames_path, original_file_format, destination_frame_path):
-
     files_path =glob.glob(original_frames_path + "/*." + original_file_format)
     for file_path in files_path:
         new_file_name = destination_frame_path + "/" + Path(file_path).name
