@@ -1,4 +1,4 @@
-LOCAL_FRAMES_DATA_PATH="/mnt/d/VideoData"
+LOCAL_FRAMES_DATA_PATH="/volume1/BackupData/ViPLab116_Data/VideoData"
 
 download_frames(){
   local BASE_URL=${1}
@@ -27,7 +27,7 @@ download_frames(){
 #Download frames 2
 BASE_URL_2="https://media.xiph.org/tearsofsteel/tearsofsteel-4k-tiff/"
 LOCAL_URL_2="${LOCAL_FRAMES_DATA_PATH}/tearsofsteel/tearsofsteel-4k-tiff/"
-START_ID_2=10000
-END_ID_2=10050
+START_ID_2=00001
+END_ID_2=17620
 mkdir -p "${LOCAL_URL_2}"
 download_frames "${BASE_URL_2}" "${LOCAL_URL_2}" "${START_ID_2}" "${END_ID_2}"
