@@ -10,7 +10,7 @@ parser.add_argument('--ff', dest='frame_format', type=str, help='original frame 
 parser.add_argument('--vp', dest='video_path', type=str, help='video path')
 
 def main(frames_path, frame_format, video_path):
-    files_path =glob.glob(frames_path + "/*." + frame_format)
+    files_path = sorted(glob.glob(frames_path + "/*." + frame_format))
     video_data = []
     for file_path in files_path:
         frame = cv2.imread(file_path, 0)
