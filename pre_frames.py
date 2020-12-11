@@ -32,12 +32,15 @@ def convert_resize_image(file_path):
         dim = (int(org_width * scale), int(org_height * scale))
     else:
         dim = (int(_new_frame_size[1]),int(_new_frame_size[0]))
-    print(dim)
+    # print(dim)
     scale_resize = cv2.resize(gray_img, dim, interpolation = cv2.INTER_CUBIC)
     # plt.imshow(scale_resize)
     # plt.show()
     return scale_resize
 
+def crop_image(image):
+    crop_img = image[0:2560, 1500:1500+2560]
+    return crop_img
 def save_img(image, file_name):
     cv2.imwrite(file_name, image)
     print("Successful to save ", file_name)
@@ -47,7 +50,8 @@ def main(original_frames_path, original_file_format, destination_frame_path):
     for file_path in files_path:
         new_file_name = destination_frame_path + "/" + Path(file_path).name
         resized_img = convert_resize_image(file_path)
-        save_img(resized_img, new_file_name)
+        cropped_img = crop_image(resized_img)
+        save_img(cropped_img, new_file_name)
 
 
 # Press the green button in the gutter to run the script.
