@@ -11,13 +11,13 @@ parser.add_argument('--dp', dest='destination_frames_path', type=str, help='dest
 
 _new_frame_size = [2560,2560]
 
-def convert_resize_image(file_path, new_file_path, new_width, new_height):
+def convert_resize_image(file_path):
     # print('test resize_image: '+ file_path + new_file_path + str(new_width) + str(new_height))
     org_img = cv2.imread(file_path)
     gray_img = cv2.cvtColor(org_img, cv2.COLOR_BGR2GRAY)
     org_height = gray_img.shape[0]
     org_width = gray_img.shape[1]
-    print(org_height)
+    # print(org_height)
     # print(org_height/_new_frame_size[0])
     # print(org_width)
     # print(org_width/_new_frame_size[1])
@@ -33,19 +33,22 @@ def convert_resize_image(file_path, new_file_path, new_width, new_height):
     else:
         dim = (int(_new_frame_size[1]),int(_new_frame_size[0]))
     print(dim)
-    scale_resize = cv2.resize(org_img, dim, interpolation = cv2.INTER_CUBIC)
-    plt.imshow(scale_resize)
-    plt.show()
+    scale_resize = cv2.resize(gray_img, dim, interpolation = cv2.INTER_CUBIC)
+    # plt.imshow(scale_resize)
+    # plt.show()
+    return scale_resize
 
-
+def save_img(image, file_name):
+    cv2.imwrite(file_name, image)
+    print("Successful to save ", file_name)
 
 def main(original_frames_path, original_file_format, destination_frame_path):
 
     files_path =glob.glob(original_frames_path + "/*." + original_file_format)
     for file_path in files_path:
         new_file_name = destination_frame_path + "/" + Path(file_path).name
-
-        convert_resize_image(file_path, new_file_name, _new_frame_size[0], _new_frame_size[1])
+        resized_img = convert_resize_image(file_path)
+        save_img(resized_img, new_file_name)
 
 
 # Press the green button in the gutter to run the script.
