@@ -3,6 +3,9 @@ import glob
 import cv2
 import numpy as np
 from datetime import datetime
+import rasterio
+from rasterio.plot import reshape_as_image
+from natsort import natsorted
 
 parser = argparse.ArgumentParser(description='Video pre-processing on frames data')
 parser.add_argument('--fp', dest='frames_path', type=str, help='frames path')
@@ -10,11 +13,17 @@ parser.add_argument('--ff', dest='frame_format', type=str, help='original frame 
 parser.add_argument('--vp', dest='video_path', type=str, help='video path')
 
 def main(frames_path, frame_format, video_path):
-    files_path = sorted(glob.glob(frames_path + "/*." + frame_format))
+    files_path = natsorted(glob.glob(frames_path + "/*." + frame_format))
     video_data = []
     for file_path in files_path:
         frame = cv2.imread(file_path, 0)
         video_data.append(frame)
+
+        # src = rasterio.open(file_path)
+        # array = src.read()
+        # print(array.shape)
+        # frame = reshape_as_image(array)
+        # video_data.append(frame)
 
     video = np.asarray(video_data)
     out = video
